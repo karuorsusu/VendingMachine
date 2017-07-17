@@ -1,16 +1,15 @@
 #!/usr/bin/env ruby
 
 class Calculator
-  attr :total, :stock
+  attr :total
 
   COINS_AVAILABLE = [10, 50, 100, 500, 1000].freeze
 
   def initialize
     @total = 0
     @stock = []
-    coke = Drink.coke  
+    coke = Drink.coke
     store(coke)
-    puts "coke: #{coke.price}円, 在庫#{coke.quantity}個" 
   end
 
   def store(drink)
@@ -20,17 +19,23 @@ class Calculator
       :price => drink.price,
       :quantity => drink.quantity
     }
-
     @stock.push(drink_hash)
   end
-  
+
   def add_other_drinks
-    redbull = Drink.redbull; water = Drink.water
-    store(redbull); store(water)
+    # レッドブルと水を生成
+    redbull = Drink.redbull
+    water = Drink.water
+    # @stock配列に挿入
+    store(redbull)
+    store(water)
   end
 
   def stock_info
-    nil
+    @stock.each_with_index do |drink, i|
+      puts "#{i}. #{drink[:name]}, #{drink[:price]}円, 在庫#{drink[:quantity]}個"
+      return nil
+    end
   end
 
   def insert(coin)
@@ -59,7 +64,7 @@ class Calculator
   end
 
   def drink_you_can_buy
-    return  
+    return
   end
 end
 
@@ -70,6 +75,7 @@ class Drink
     @name = name; @price = price; @quantity = quantity
   end
 
+  # それぞれの決まったドリンクのオブジェクトを生成するためのクラスメソッドを定義
   def self.coke
     self.new("coke", 120, 5)
   end
@@ -82,4 +88,3 @@ class Drink
     self.new("water", 100, 5)
   end
 end
-
