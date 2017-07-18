@@ -11,7 +11,7 @@ require './vendingmachine'
 calc = Calculator.new
 
 # レッドブルと水を追加する時はコメントを外す
-calc.add_other_drinks
+# calc.add_other_drinks
 
 # 全ドリンクリスト
 puts "<飲み物リスト>"
