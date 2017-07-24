@@ -39,13 +39,13 @@ class Calculator
       puts "#{drink[:name]}: #{drink[:price]}円, 在庫#{drink[:quantity]}個"
     end
   end
-
+  #機能を持たせすぎな気がする
   def insert(coin)
       # coinが整数かどうか（入力を受け取る時は数値か文字列かを指定できないので）
       if coin.to_i != 0 and COINS_AVAILABLE.include?(coin.to_i)
         coin = coin.to_i
         @total += coin
-      elsif coin == "refund"
+      elsif coin == "refund"  #coinに文字列を代入するのはちょっと違和感があります
         refunds
       elsif coin == "exit"
         puts "購入に進みます"
@@ -70,9 +70,9 @@ class Calculator
   def buy(drink_name)
 
     drink_index = get_drink_index(drink_name)
-
+# stockの構造が少しややこしいです
     if can_you_buy_it?(drink_name)
-      @total -= @stock[drink_index][:price]
+      @total -= @stock[drink_index][:price]　
       @earnings += @stock[drink_index][:price]
       @stock[drink_index][:quantity] -= 1
       return drink_name
@@ -97,7 +97,7 @@ class Calculator
 
   def can_you_buy_it?(drink_name)
     drink_index = get_drink_index(drink_name)
-
+#if文の条件分岐が長くて読みにくく感じます
     if @total >= @stock[drink_index][:price] and @stock[drink_index][:quantity] > 0
       true
     else
